@@ -2,7 +2,6 @@ package com.AlquilerOrtesis.Ortesis3.Controllers;
 
 import com.AlquilerOrtesis.Ortesis3.Model.Admin;
 import com.AlquilerOrtesis.Ortesis3.Services.AdminService;
-import com.AlquilerOrtesis.Ortesis3.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +34,7 @@ public class AdminController {
     }
 
     @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
     public Admin updateAdmin(@RequestBody Admin admin){
         return adminService.updateAdmin(admin);
     }

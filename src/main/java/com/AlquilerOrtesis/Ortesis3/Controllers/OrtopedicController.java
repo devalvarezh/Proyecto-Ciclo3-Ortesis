@@ -34,6 +34,7 @@ public class OrtopedicController {
     }
 
     @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
     public Ortopedic updateOrtopedic(@RequestBody Ortopedic ortopedic){
         return ortopedicService.updateOrtopedic(ortopedic);
     }
