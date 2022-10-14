@@ -40,6 +40,7 @@ public class MessageController {
     }
 
     @DeleteMapping("/{idMessage}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean deleteMessage(@PathVariable("idMessage") int id){
         return messageService.deleteMessage(id);
     }
