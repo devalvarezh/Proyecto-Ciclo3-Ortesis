@@ -1,5 +1,7 @@
 package com.AlquilerOrtesis.Ortesis3.Controllers;
 
+import com.AlquilerOrtesis.Ortesis3.Model.DTO.ReservationsByClient;
+import com.AlquilerOrtesis.Ortesis3.Model.DTO.StatusReport;
 import com.AlquilerOrtesis.Ortesis3.Model.Reservation;
 import com.AlquilerOrtesis.Ortesis3.Services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +47,18 @@ public class ReservationController {
         return reservationService.deleteReservation(idReservation);
     }
 
+    @GetMapping("/report-dates/{dateA}/{dateB}")
+    public List<Reservation> getReservationsInPeriodReport(@PathVariable("dateA") String dateA, @PathVariable("dateB") String dateB){
+        return reservationService.getReservationsInPeriodReport(dateA, dateB);
+    }
+
+    @GetMapping("/report-status")
+    public StatusReport getReservationStatusReport(){
+        return reservationService.getReservationStatusReport();
+    }
+
+    @GetMapping("/report-clients")
+    public List<ReservationsByClient> getTopClientsReport(){
+        return reservationService.getTopClientsReport();
+    }
 }

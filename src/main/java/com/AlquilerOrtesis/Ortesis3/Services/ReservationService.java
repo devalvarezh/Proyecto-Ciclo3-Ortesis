@@ -1,10 +1,16 @@
 package com.AlquilerOrtesis.Ortesis3.Services;
 
+import com.AlquilerOrtesis.Ortesis3.Model.DTO.ReservationsByClient;
+import com.AlquilerOrtesis.Ortesis3.Model.DTO.StatusReport;
 import com.AlquilerOrtesis.Ortesis3.Model.Reservation;
 import com.AlquilerOrtesis.Ortesis3.Repositories.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,4 +61,35 @@ public class ReservationService {
         }).orElse(false);
         return true;
     }
+
+    //Reto 5
+
+    public List<Reservation> getReservationsInPeriodReport(String dateA, String dateB){
+        SimpleDateFormat parser = new SimpleDateFormat("yy-MM-dd");
+        Date a = new Date();
+        Date b = new Date();
+        try {
+            a = parser.parse(dateA);
+            b = parser.parse(dateB);
+        }catch (ParseException exception){
+            exception.printStackTrace();
+        }
+
+        if (a.before(b)){
+            return reservationRepository.getReservationInPeriod(a, b);
+        } else
+            return new ArrayList<>();
+    }
+
+    public StatusReport getReservationStatusReport() {
+        List<Reservation> completed = reservationRepository.getReservationByStatus("completed");
+        List<Reservation> cancelled = reservationRepository.getReservationByStatus("cancelled");
+
+        return new StatusReport((int) completed.size(), (int) cancelled.size());
+    }
+
+    public List<ReservationsByClient> getTopClientsReport(){
+        return reservationRepository.getTopClients();
+    }
+
 }
