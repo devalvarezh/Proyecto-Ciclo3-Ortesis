@@ -66,17 +66,17 @@ public class ReservationService {
 
     public List<Reservation> getReservationsInPeriodReport(String dateA, String dateB){
         SimpleDateFormat parser = new SimpleDateFormat("yy-MM-dd");
-        Date a = new Date();
-        Date b = new Date();
+        Date initialDate = new Date();
+        Date endDate = new Date();
         try {
-            a = parser.parse(dateA);
-            b = parser.parse(dateB);
+            initialDate = parser.parse(dateA);
+            endDate = parser.parse(dateB);
         }catch (ParseException exception){
             exception.printStackTrace();
         }
 
-        if (a.before(b)){
-            return reservationRepository.getReservationInPeriod(a, b);
+        if (initialDate.before(endDate)){
+            return reservationRepository.getReservationInPeriod(initialDate, endDate);
         } else
             return new ArrayList<>();
     }
